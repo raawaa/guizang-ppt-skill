@@ -1,0 +1,4 @@
+# Treat CLAUDE.md as a real symlink even when the client has
+# `core.symlinks=false` (default on Windows). Git 2.42+ honors this.
+# See scripts/check-agent-docs.sh for the runtime check.
+CLAUDE.md symlink
