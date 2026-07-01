@@ -53,7 +53,7 @@ slides.forEach((slide) => {
     errors.push(`Slide ${slide.idx}: uses P23/P24. P23/P24 is Style B experimental, not allowed in Hongqiao.`);
   }
 
-  const isStatement = layout === 'S03' || layout === 'S09' || layout === 'S10' || layout === 'SWISS-COVER-ASCII' || layout === 'SWISS-CLOSING-ASCII';
+  const isStatement = layout === 'S03' || layout === 'S09' || layout === 'S10' || layout === 'SWISS-COVER-ASCII' || layout === 'SWISS-CLOSING-ASCII' || layout === 'HQ-01' || layout === 'HQ-06';
   const topChunk = slide.html.slice(0, 1800);
 
   if (!isStatement && /text-align\s*:\s*center/i.test(topChunk)) {
@@ -174,13 +174,47 @@ slides.forEach((slide) => {
   totalAlertAmber += (slide.html.match(/var\(--alert-amber\)/g) || []).length;
 });
 
+// HQ-01 封面 · 5 条 P0 检查(对应 #7 issue)
+slides.forEach((slide) => {
+  if (!/data-layout="HQ-01"/.test(slide.tag)) return;
+  const hq01 = slide.html;
+  const hq01Top = hq01.slice(0, 1800);
+
+  // 1) 必须含 <img> 引用 logo-white.png
+  if (!/<img\b[^>]*src="[^"]*logo-white\.png/i.test(hq01)) {
+    errors.push(`Slide ${slide.idx} (HQ-01): missing <img> referencing logo-white.png. Cover must show top-left LOGO per PPTX (0.66in/0.50in/3.28in/0.60in).`);
+  }
+
+  // 2) 必须含 <img> 引用 cover-arc.png
+  if (!/<img\b[^>]*src="[^"]*cover-arc\.png/i.test(hq01)) {
+    errors.push(`Slide ${slide.idx} (HQ-01): missing <img> referencing cover-arc.png. Cover must show full-width bottom arc per PPTX slide 1.`);
+  }
+
+  // 3) 必须用 class="slide hero dark"
+  if (!/\bclass="[^"]*\bhero\s+dark\b[^"]*"/.test(slide.tag)) {
+    errors.push(`Slide ${slide.idx} (HQ-01): class must include "hero dark" (深蓝底). Currently "${slide.tag.replace(/^<section\b[^>]*class="/, '').replace(/".*$/, '')}".`);
+  }
+
+  // 4) 标题必须 text-align:center + font-weight:700(top 1800 字符内)
+  if (!/text-align\s*:\s*center/i.test(hq01Top) || !/font-weight\s*:\s*700\b/i.test(hq01Top)) {
+    errors.push(`Slide ${slide.idx} (HQ-01): title must have text-align:center + font-weight:700 in top 1800 chars. Cover title is centered + bold per PPTX.`);
+  }
+
+  // 5) 副标(<p> / .lead)必须含 color: var(--alert-amber)
+  const hasAmberLead = /<p\b[^>]*class="[^"]*\blead\b[^"]*"[^>]*style="[^"]*color\s*:\s*var\(--alert-amber\)/i.test(hq01) ||
+                       /<p\b[^>]*style="[^"]*color\s*:\s*var\(--alert-amber\)[^"]*"[^>]*class="[^"]*\blead\b[^"]*"/i.test(hq01);
+  if (!hasAmberLead) {
+    errors.push(`Slide ${slide.idx} (HQ-01): subtitle (<p class="lead">) must use color:var(--alert-amber). Cover subheading is amber per PPTX.`);
+  }
+});
+
 // 全 deck 统计
 if (pageCount >= 8) {
   if (heroLightCount === 0) errors.push(`Total: deck with >=8 pages must have >=1 hero light page.`);
   if (heroDarkCount === 0) errors.push(`Total: deck with >=8 pages must have >=1 hero dark page.`);
 }
-if (pageCount > 0 && darkPageCount / pageCount > 0.25) {
-  warnings.push(`Total: dark page ratio is ${(darkPageCount/pageCount*100).toFixed(1)}% (>25% cap).`);
+if (pageCount > 0 && darkPageCount / pageCount > 0.50) {
+  warnings.push(`Total: dark page ratio is ${(darkPageCount/pageCount*100).toFixed(1)}% (>50% cap).`);
 }
 const totalAlerts = totalAlertRed + totalAlertAmber;
 if (totalAlerts > pageCount * 4) {

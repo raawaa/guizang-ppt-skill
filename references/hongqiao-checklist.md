@@ -26,6 +26,13 @@
 13. **连续 3 页以上同主题 = 视觉疲劳,不允许**——人工核验
 14. **8 页以上必须有 ≥ 1 个 `hero dark` + ≥ 1 个 `hero light`**
 
+### HQ-01 封面专属(对应 #7 issue · 5 条 P0 自动检查)
+14a. **HQ-01 必须用 `class="slide hero dark"`** ——深蓝底,跟原 PPTX slide 1 一致;`hero light` 已废弃
+14b. **HQ-01 必须含 `<img>` 引用 `logo-white.png`** ——左上 LOGO,PPTX 位置 0.66in/0.50in/3.28in/0.60in
+14c. **HQ-01 必须含 `<img>` 引用 `cover-arc.png`** ——底部弧形,横跨整宽(`width:100vw;left:0;bottom:0`)
+14d. **HQ-01 标题必须 `text-align:center` + `font-weight:700`** ——居中粗体,中式封面大标题的视觉签名
+14e. **HQ-01 副标必须 `color:var(--alert-amber)`** ——警示黄定调,跟 arc 弧形色彩闭环
+
 ### 几何与视觉
 15. **`border-radius` 全为 0**——`grep -E 'border-radius\s*:\s*[^0]' index.html` 必须 0 命中
 16. **没有 `box-shadow`**——`grep -E 'box-shadow' index.html` 必须 0 命中
@@ -100,6 +107,6 @@
 | 装饰元素 | WebGL 流体 | WebGL 网格 | **8×8 直角小方块(无 WebGL)** |
 | 数据展示 | 1 个数据大字报 | 22 版式里多个 KPI | **1 个专用 HQ-05 数据页(4 KPI)** |
 | 目录/章节/致谢 | 无专门版式 | 无专门版式 | **HQ-02/03/06 三个中式结构版式** |
-| 暗页比例 | 灵活 | 灵活 | **≤ 25%** |
+| 暗页比例 | 灵活 | 灵活 | **≤ 50%**(封面/封底/章节过渡允许大节奏) |
 | WebGL 背景 | 有(流体) | 有(网格) | **无(中式正装不要)——可以未来加上** |
 | 必杀技 | Monocle 杂志感 | Swiss 极简 | **中式深蓝商务正装** |

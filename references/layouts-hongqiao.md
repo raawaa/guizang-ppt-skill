@@ -71,47 +71,52 @@
 
 ## HQ-01 封面(Cover)
 
-**用途**:第 1 页,公司名 + 报告标题 + 副标题 + 日期。
-**对应原 PPTX**:`slideLayout1.xml`(封面)+ `slide1.xml` 实例。
+**用途**:第 1 页,公司名 + 报告标题 + 副标题 + 日期;深蓝暗底,视觉冲击强,定调全场。
+**对应原 PPTX**:`slideLayout1.xml`(封面)+ `slide1.xml` 实例(虹桥公司PPT模板16比9-蓝色版.pptx)。
+
+**PPTX 几何参考**(16:9 投影比例换算):
+- LOGO 位置:`x=0.66in / y=0.50in / w=3.28in / h=0.60in`(左上,白底反白)
+- 标题:水平居中(`text-align:center`),字重 700
+- 副标:水平居中,色值 `var(--alert-amber)`(警示黄,定调)
+- 日期:独立居中底部(`bottom:5vh;text-align:center`),与正文/作者解耦
+- 弧形:底部横跨整宽(`width:100vw;left:0;bottom:0`),由 `cover-arc.png` 承载
+- 装饰小方块(`deco-dot`)**在暗底上不可见**,由 arc 弧形代替;**不要**再放 3 个 deco-dot
 
 **骨架**(完整可粘贴):
 
 ```html
-<section class="slide hero light" data-layout="HQ-01" data-animate="hero">
+<section class="slide hero dark" data-layout="HQ-01" data-animate="hero">
+  <!-- 左上 LOGO(PPTX 0.66in/0.50in/3.28in/0.60in) -->
+  <img class="logo-hq" src="../assets/source/hongqiao/logo-white.png" alt="上海机场 · 虹桥机场">
   <header class="chrome-min">
     <span class="t-meta">HONGQIAO</span>
     <span class="t-meta">2026 · Q1</span>
   </header>
 
-  <div class="canvas-card">
-    <div class="t-cat" style="color:var(--accent)">[必填] · 副标题/部门</div>
-    <h1 class="h-cover" style="margin-top:1.2vh">主标题 · 大标题编辑区域位置</h1>
-    <p class="lead" style="margin-top:3.2vh;max-width:60%">
-      此处为副标题编辑区域,请根据本页所要表达的内容替换相应字,建议长度不超过 60 个中文字符。
-    </p>
-    <div style="display:flex;gap:3vw;margin-top:auto;padding-top:6vh">
-      <span class="t-meta">REPORT · 2026</span>
-      <span class="t-meta">[必填] 报告人</span>
-      <span class="t-meta">[必填] 部门</span>
-    </div>
+  <div class="canvas-card" style="text-align:center;align-items:center">
+    <div class="t-cat" style="color:var(--accent)">[必填] · 部门 / 副标</div>
+    <h1 class="h-cover" style="margin-top:1.2vh;font-weight:700">[必填] 主标题</h1>
+    <p class="lead" style="margin-top:3.2vh;max-width:60%;color:var(--alert-amber)">[必填] 副标 / 引子,定调全场.</p>
   </div>
 
-  <!-- 装饰:左下 8x8 虹桥深蓝小方块(同 Style B 风格) -->
-  <div style="position:absolute;left:5vw;bottom:5vh;display:flex;gap:8px">
-    <span style="width:8px;height:8px;background:var(--ink);display:inline-block"></span>
-    <span style="width:8px;height:8px;background:var(--accent);display:inline-block"></span>
-    <span style="width:8px;height:8px;background:var(--alert-amber);display:inline-block"></span>
-  </div>
+  <!-- 居中日期(独立于正文,放在底部) -->
+  <div class="t-meta" style="position:absolute;left:0;right:0;bottom:5vh;text-align:center">[必填] 日期 · 部门</div>
+
+  <!-- 底部弧形(横跨整宽) -->
+  <img class="cover-arc" src="../assets/source/hongqiao/cover-arc.png" alt="">
 </section>
 ```
 
-**关键 class**:`h-cover` / `t-cat` / `lead` / `t-meta` / `chrome-min` / `canvas-card`
-**动效 recipe**:`hero` — 标题从下淡入 0.8s,lead 延迟 0.2s,装饰方块 scaleY 弹起。
-**主题类**:`hero light`(亮底 hero,跟原 PPTX 一致)。
+**关键 class**:`h-cover` / `t-cat` / `lead` / `t-meta` / `chrome-min` / `canvas-card` / `logo-hq` / `cover-arc`
+**动效 recipe**:`hero` — LOGO 淡入 0.6s,标题从下淡入 0.8s,lead 延迟 0.2s,arc 从下滑入 1.0s。
+**主题类**:`hero dark`(深蓝暗底,跟原 PPTX slide 1 一致;`hero light` 已废弃)。
 **注意**:
-- `h-cover` 字重 500(中式温和,非 Swiss 200)
-- 装饰方块最多 3 个,**颜色顺序必须是 ink → accent → alert-amber**(原 PPTX 配色顺序)
-- 装饰方块大小 8×8,**不能放大**(放大就成大色块,违反「警示色不作大色块」)
+- `h-cover` 字重 **700**(PPTX 大字视觉,中式稳重;非 Swiss 200,非 Style C 默认 500)
+- 标题/副标在 `canvas-card` 内水平+垂直居中(`text-align:center; align-items:center`)
+- 副标强制 `color:var(--alert-amber)` ——这是「中式正装」封面的核心暖色锚点
+- 日期从原 meta 行抽出,独立居中放在底部 5vh,**不要**和正文混排
+- **不要**再用 `deco-dot`(暗底上不可见);`border-radius > 0` / `box-shadow` 仍 P0 禁用
+- 5 条 validator P0 自动检查(对应 `scripts/validate-hongqiao-deck.mjs`):logo img / arc img / `hero dark` / `text-align:center` + `font-weight:700` / 副标 `color:var(--alert-amber)`
 
 ---
 
