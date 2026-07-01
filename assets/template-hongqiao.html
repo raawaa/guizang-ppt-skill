@@ -265,6 +265,8 @@
     color:var(--ink);
   }
   .h-thanks-em{color:var(--accent);font-style:normal}
+  .logo-hq{position:absolute;left:5vw;top:5vh;height:5vh;width:auto}
+  .cover-arc{position:absolute;left:0;bottom:0;width:100vw;height:auto;pointer-events:none}
   .kpi-num{
     font-family:var(--sans),var(--sans-zh);
     font-weight:500;
@@ -1395,6 +1397,29 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- ============ 示例:HQ-01 封面 · 虹桥公司风(深蓝底 + 左上 LOGO + 居中粗体标题 + 黄副标 + 居中日期 + 底部弧形) ============
+     对应原 PPTX `slide1.xml` —— LOGO 位置 0.66in / 0.50in / 3.28in / 0.60in(16:9 投影比例),
+     标题居中 + 字重 700,arc 横跨整宽。
+     ⚠️ 对应 validator 的 5 条 P0:
+       1) <img> 引用 logo-white.png   2) <img> 引用 cover-arc.png
+       3) class="slide hero dark"     4) 标题 text-align:center + font-weight:700
+       5) 副标 color:var(--alert-amber)
+     ⚠️ 装饰小方块(deco-dot)在 HQ-01 暗底上**不可见**,由 arc 弧形代替(原 PPTX 视觉一致). -->
+<section class="slide hero dark" data-layout="HQ-01" data-animate="hero">
+  <img class="logo-hq" src="../assets/source/hongqiao/logo-white.png" alt="上海机场 · 虹桥机场">
+  <header class="chrome-min">
+    <span class="t-meta">HONGQIAO</span>
+    <span class="t-meta">2026 · Q1</span>
+  </header>
+  <div class="canvas-card" style="text-align:center;align-items:center">
+    <div class="t-cat" style="color:var(--accent)">[必填] · 部门 / 副标</div>
+    <h1 class="h-cover" style="margin-top:1.2vh;font-weight:700">[必填] 主标题</h1>
+    <p class="lead" style="margin-top:3.2vh;max-width:60%;color:var(--alert-amber)">[必填] 副标题 / 引子,定调全场.</p>
+  </div>
+  <div class="t-meta" style="position:absolute;left:0;right:0;bottom:5vh;text-align:center">[必填] 日期 · 部门</div>
+  <img class="cover-arc" src="../assets/source/hongqiao/cover-arc.png" alt="">
 </section>
 
 </div>
