@@ -37,6 +37,10 @@
 20. **所有 `[必填]` 必须替换**——`grep -c '\[必填\]' index.html` 必须 = 0
 21. **`<title>` 已改**——不能是 `\[必填\] 替换为 PPT 标题 · Deck Title`
 
+### HQ-06 致谢页(issue #8 视觉对齐)
+22. **HQ-06 必须含 LOGO + 至少一个双圆 PNG**——`grep -E '<img[^>]*logo-white\.png' index.html` 必须命中,**且** `grep -E '<img[^>]*circle-(large|small)\.png' index.html` 必须命中;对应 validator P0 检查
+23. **HQ-06 必须保持 `class="slide hero dark"`**——不允许改成 `hero light` / `dark`;validator P0 检查,否则报错
+
 ---
 
 ## P1 · 强烈建议(人工核验)
