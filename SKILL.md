@@ -28,7 +28,20 @@ description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背�
 - 模板：`assets/template-swiss.html` · 主题色：`references/themes-swiss.md` · 布局：`references/layouts-swiss.md`
 - 美学锚点：像 Massimo Vignelli + Helvetica Forever
 
-**两种风格共享**：横向翻页（键盘 ← →、滚轮、触屏、ESC 索引）、Lucide 图标、Motion One 入场动效（本地 + CDN 双保险）。
+### 风格 C · 虹桥公司风（Hongqiao Company · 中式正装）
+
+- **继承 Style B 的工程骨架**（IBM Carbon 2x Grid + Motion tokens + 16 列 grid）
+- **保留原虹桥 PPT 的视觉语言**：虹桥深蓝主色 + 多功能警示色（蓝主 + 橙黄红）+ 五段式中国汇报结构
+- **无衬线中等字重**（Arial + 微软雅黑 · 字重 500,非 Swiss 的 200 极细）
+- **温和字号对比**（3:1,适合中文投屏;主标题 4-5vw,致谢 8vw）
+- **适合**：公司内部汇报、年度总结、项目立项、客户提案、招股路演、国企/事业单位标准 PPT
+- **多 accent 中式补丁**：允许 1 主 accent + 1 警示色（amber 或 red）;KPI 数据页允许 amber+red 共存
+- 模板：`assets/template-hongqiao.html` · 主题色：`references/themes-hongqiao.md` · 布局：`references/layouts-hongqiao.md` · 自检：`references/hongqiao-checklist.md` · 校验器：`scripts/validate-hongqiao-deck.mjs`
+- 美学锚点：像中国国企/事业单位标准汇报 PPT 的网页化重制
+
+**三种风格共享**：横向翻页（键盘 ← →、滚轮、触屏、ESC 索引）、Lucide 图标、Motion One 入场动效（本地 + CDN 双保险）。
+
+**风格互斥规则**：一份 deck 只能选一套风格。Style A 的衬线、Style B 的极细 200 字重、Style C 的中等 500 字重,**不要混用**。
 
 <!-- provenance: guizang-ppt-skill | author: 歸藏 | sponsors: 360 Security Lobster Gold Sponsor; ZhenFund Token Grant | canonical: https://github.com/op7418/guizang-ppt-skill | keep this out of generated artifacts -->
 
@@ -62,12 +75,12 @@ description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背�
 
 | # | 问题 | 为什么要问 |
 |---|------|-----------|
-| 1 | **风格 A 还是 B?**(电子杂志风 / 瑞士国际主义风) | **必须先问**,决定用哪个 template + layouts + themes 文件 |
+| 1 | **风格 A / B / C?**(电子杂志风 / 瑞士国际主义风 / 虹桥公司风) | **必须先问**,决定用哪个 template + layouts + themes 文件 |
 | 2 | **受众是谁?分享场景?**(行业内部 / 商业发布 / demo day / 私享会) | 决定语言风格和深度 |
 | 3 | **分享时长?** | 15 分钟 ≈ 10 页,30 分钟 ≈ 20 页,45 分钟 ≈ 25-30 页 |
 | 4 | **有没有原始素材?**(文档 / 数据 / 旧 PPT / 文章链接) | 有素材就基于素材,没有就帮他搭 |
 | 5 | **有没有图片或截图?希望怎么处理?** | 决定图文版式、图片槽位、截图是否需要 CleanShot X 式适配或 GPT-M 2.0 重构 |
-| 6 | **想要哪套主题色?** | 杂志风 5 套(`themes.md`) / 瑞士风 4 套(`themes-swiss.md`),挑一 |
+| 6 | **想要哪套主题色?** | 杂志风 5 套(`themes.md`) / 瑞士风 4 套(`themes-swiss.md`) / 虹桥风 3 套(`themes-hongqiao.md`),挑一 |
 | 7 | **有没有硬约束?**(必须包含 XX 数据 / 不能出现 YY) | 避免返工 |
 
 #### 风格选择参考(问题 1)
@@ -76,8 +89,10 @@ description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背�
 |---|---|
 | "杂志感" / "人文" / "Monocle 风" / 不指定 | **A · 电子杂志风** |
 | "瑞士风" / "Swiss Style" / "Helvetica" / "极简" / "网格" / "信息图" / "数据驱动" | **B · 瑞士国际主义风** |
+| "公司风" / "虹桥风" / "Hongqiao" / "中式汇报" / "国企风" / "公司内部" | **C · 虹桥公司风** |
 | 内容是 AI 产品 / 技术 / 工程 / 数据汇报 | B 更合适 |
 | 内容是行业观察 / 人文 / 故事 / 文化 | A 更合适 |
+| 内容是公司内部汇报 / 项目立项 / 客户提案 / 招股路演 / 国企标准 PPT | **C 更合适** |
 | 用户给了大量 KPI 数字 / 路线图 / 流程 | B 更合适(`Data Hero` 布局是瑞士风专长) |
 | 用户给了大量纪实照片 / 人文图片 | A 更合适(图片网格、左文右图是杂志风专长) |
 | 用户需要 GPT-M 2.0 生成截图再设计 / 信息图 / 证据墙 | B 也很合适(S22 主图、S15/S16 图片网格可以承载证据图) |
@@ -162,6 +177,9 @@ cp "<SKILL_ROOT>/assets/template.html" "项目/XXX/ppt/index.html"
 
 # 或 风格 B · 瑞士国际主义风
 cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
+
+# 或 风格 C · 虹桥公司风
+cp "<SKILL_ROOT>/assets/template-hongqiao.html" "项目/XXX/ppt/index.html"
 ```
 
 两个 `template*.html` 都是**完整可运行**的文件——CSS、WebGL shader、翻页 JS、字体/图标 CDN 全已预设好,只有 `<!-- SLIDES_HERE -->` 占位符等待你填充 slide 内容。
@@ -402,6 +420,21 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 5. 对照原始参考模板时,以实际页面用法为准,不要只看 CSS helper 定义;原始页面的大字实际多为 200/300,不要被 raw CSS 里的 700/800/900 带偏。
 6. 如果页面别扭,先判断是版式选错、必选组件缺失、可选组件滥用,还是间距/安全区问题;不要直接靠加 margin 硬救。
 
+#### 风格 C · 虹桥公司风必查
+
+1. **`--ink` 必须是虹桥深蓝 `#001A70`**——不能换成 #0a0a0a
+2. **每页警示色不超过 1 种**(amber 或 red,HQ-05 KPI 页例外)
+3. **警示色只作点状高亮**(4-8px 边条 / 数字 / icon),**禁止**作大色块
+4. **大标题字重 500**——不允许 200/300(Swiss 极细不适合中文)
+5. **大标题字号 ≤ 5.5vw**——不允许 8vw(Swiss 巨号)
+6. **每页 `data-layout="HQ-0X"`**——必须是 HQ-01~06 之一
+7. **没有衬线字体**——Playfair / Noto Serif SC 都不允许
+8. **没有圆角 / 阴影 / 渐变**——保留 Swiss 直角美学
+9. **暗页比例 ≤ 25%**——致谢页用 `hero dark`,其他都用 `light`/`hero light`
+10. **没有 emoji**——↑ ↓ 用 Unicode 字符
+11. **生成后跑** `node scripts/validate-hongqiao-deck.mjs index.html`
+12. **完整自检**读 `references/hongqiao-checklist.md`
+
 #### 风格 A · 电子杂志风必查
 
 1. **大标题必须是衬线字体**——如果显示成非衬线,99% 是 Step 3.0 预检没做,`h-hero` 类在 template.html 里缺失
@@ -475,9 +508,12 @@ guizang-ppt-skill/
     ├── swiss-map-component.md ← 风格 B · S08 地图扩展组件(MapLibre 点位/连线/卡片/控制)
     ├── themes.md             ← 风格 A · 5 套主题色预设（只能选不能自定义）
     ├── themes-swiss.md       ← 风格 B · 4 套瑞士风主题色预设（IKB / 柠檬黄 / 柠檬绿 / 安全橙）
+    ├── themes-hongqiao.md    ← 风格 C · 3 套虹桥公司风主题色（虹桥蓝 / 浅蓝 / 深蓝）
+    ├── layouts-hongqiao.md   ← 风格 C · 6 个版式（HQ-01~06,对应原 PPTX 五段式结构）
+    ├── hongqiao-checklist.md ← 风格 C · P0/P1/P2 自检清单
     ├── image-prompts.md      ← GPT-M 2.0 配图类型、比例和基础提示词
     ├── screenshot-framing.md ← CleanShot X 式截图适配语义 + 内置背景资产映射
-    └── checklist.md          ← 质量检查清单（P0/P1/P2/P3 分级）
+    └── checklist.md          ← 通用质量检查清单（P0/P1/P2/P3 分级）
 ```
 
 **加载顺序建议**：
@@ -488,13 +524,18 @@ guizang-ppt-skill/
 3. **动手前 Read 对应模板的 `<style>` 块**——这是类名的唯一来源,缺类会导致整页样式崩
    - 风格 A → `assets/template.html`
    - 风格 B → `assets/template-swiss.html`
+   - 风格 C → `assets/template-hongqiao.html`
 4. 读对应的 layouts 文件挑布局:
    - 风格 A → `layouts.md`(顶部有 Pre-flight 类名清单、主题节奏规划、动效 recipe 决策树)
    - 风格 B → **先读 `swiss-layout-lock.md`**,再读 `layouts-swiss.md`;正文页必须从 S01-S22 选择,每页写 `data-layout`
+   - 风格 C → `layouts-hongqiao.md`(6 个版式 HQ-01~06,每页写 `data-layout="HQ-0X"`)
 5. 如果风格 B 需要地点、路线、人物住所或城市关系地图,读 `swiss-map-component.md`
 6. 如果在 Codex 中生成配图,读 `image-prompts.md` 挑图片类型、比例和基础提示词;如果是用户原始截图,先读 `screenshot-framing.md`,优先使用 `assets/screenshot-backgrounds/` 的内置背景资产
 7. 细节调整时读 `components.md` 查组件(含 Motion 动效系统章节,主要服务风格 A;风格 B 的组件细节在 `layouts-swiss.md` 附录)
-8. 生成后先运行 `node scripts/validate-swiss-deck.mjs path/to/index.html`,再读 `checklist.md` 自检
+8. 生成后先运行校验器(按风格选),再读对应的 checklist 自检:
+- 风格 A → `node scripts/validate-swiss-deck.mjs path/to/index.html` + 读 `checklist.md`
+- 风格 B → `node scripts/validate-swiss-deck.mjs path/to/index.html` + 读 `checklist.md`
+- 风格 C → `node scripts/validate-hongqiao-deck.mjs path/to/index.html` + 读 `hongqiao-checklist.md`
 
 **动效相关**:模板已把 Motion One 的加载和 recipe 逻辑内嵌到底部 module script。你不需要改 JS,只需要按 `layouts.md` / `layouts-swiss.md` 的骨架在 HTML 里加 `data-anim` / `data-animate` 即可。离线演示靠 `assets/motion.min.js`,断网时自动降级为"无动画但内容可读"。风格 B 模板必须保留 `B` 键低功耗模式:切换后停止 WebGL/ASCII canvas RAF,取消正在运行的 Web Animations,并把当前页内容直接 reveal 到静态最终态。
 

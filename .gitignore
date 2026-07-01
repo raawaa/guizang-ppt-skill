@@ -1,2 +1,7 @@
 .DS_Store
 *.backup
+
+# 虹桥公司品牌资产隔离(原 PPTX、抽出的 logo、临时图片等)
+assets/source/
+assets/company-*.html
+*.pptx
