@@ -350,17 +350,18 @@
 
 ## HQ-06 致谢(Thanks)
 
-**用途**:最后 1 页,大字"谢谢"或类似闭幕。
-**对应原 PPTX**:`slideLayout9.xml`(感谢页)+ `slide31.xml` 实例——80pt 巨号"谢谢!"。
+**用途**:最后 1 页,大字"谢谢!"或类似闭幕。
+**对应原 PPTX**:`slideLayout9.xml`(感谢页)+ `slide31.xml` 实例——80pt 巨号"谢谢!"(深蓝底 + 左上 LOGO + 右侧双黄圆部分出画)。
+**issue #8 视觉对齐**:左右结构改为 PPTX slide31 实测:左上角贴顶 LOGO(`logo-white.png`)+ 右侧两个部分出画的黄色圆环。
 
-**骨架**:
+**骨架**(完整可粘贴,issue #8):
 
 ```html
 <section class="slide hero dark" data-layout="HQ-06" data-animate="manifesto">
   <!-- 不需要 chrome-min:hero dark 页让装饰极简 -->
   <div class="canvas-card" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;height:100%">
     <span class="t-meta" style="color:var(--grey-3)">END · 2026 Q1</span>
-    <h1 class="h-thanks" style="margin-top:2vh">谢 谢</h1>
+    <h1 class="h-thanks" style="margin-top:2vh">谢谢!</h1>
     <p class="lead" style="margin-top:3vh;color:var(--grey-2)">感谢聆听 · 欢迎提问</p>
     <div style="margin-top:auto;display:flex;gap:3vw;padding-top:8vh">
       <span class="t-meta" style="color:var(--grey-3)">[必填] 报告人</span>
@@ -368,23 +369,41 @@
       <span class="t-meta" style="color:var(--grey-3)">[必填] 日期</span>
     </div>
   </div>
-  <!-- 右下 8x8 装饰方块(同 HQ-01 配色) -->
-  <div style="position:absolute;right:5vw;bottom:5vh;display:flex;gap:8px">
-    <span style="width:8px;height:8px;background:var(--ink-3);display:inline-block"></span>
-    <span style="width:8px;height:8px;background:var(--accent-bright);display:inline-block"></span>
-    <span style="width:8px;height:8px;background:var(--alert-amber);display:inline-block"></span>
-  </div>
+  <!-- 左上 LOGO + 右侧两个部分出画的圆(issue #8) -->
+  <img class="logo-hq" src="../assets/source/hongqiao/logo-white.png" alt="上海机场 · 虹桥机场">
+  <img class="circle-tr" src="../assets/source/hongqiao/circle-large.png" alt="">
+  <img class="circle-br" src="../assets/source/hongqiao/circle-small.png" alt="">
 </section>
 ```
 
-**关键 class**:`h-thanks` / `t-meta` / `lead` / `canvas-card`
+**关键 class**:`h-thanks` / `t-meta` / `lead` / `canvas-card` / `logo-hq` / `circle-tr` / `circle-br`
 **动效 recipe**:`manifesto` — 大字 fade 慢入 1.2s,sub 文字延迟 0.4s。
-**主题类**:`hero dark`(暗底 hero,跟原 PPTX 一致)。
+**主题类**:`hero dark`(暗底 hero,跟原 PPTX slide31 一致)。
+
+### PPTX 数据来源 / 精确尺寸(issue #8 实测对齐)
+
+| 元素 | 资产 | 位置(vw / vh) | 尺寸(vh) | 备注 |
+|---|---|---|---|---|
+| 左上 LOGO | `assets/source/hongqiao/logo-white.png` | `left:5vw; top:4vh` | `7vh` | 贴顶左,白底 LOGO,深蓝底反白 |
+| 右上大圆 | `assets/source/hongqiao/circle-large.png` | `right:-5vw; top:18vh` | `30vh` | **部分出画**(right:-5vw 让 5vw 出血) |
+| 右下小圆 | `assets/source/hongqiao/circle-small.png` | `right:-3vw; bottom:-6vh` | `25vh` | **部分出画**(bottom:-6vh 让 6vh 出血) |
+
+CSS 实测规则(纯 vh 单位,与视口高度等比缩放,无 vw 干扰):
+
+```css
+.logo-hq{position:absolute;left:5vw;top:4vh;height:7vh;width:auto;pointer-events:none}
+.circle-tr{position:absolute;right:-5vw;top:18vh;height:30vh;width:auto;pointer-events:none}
+.circle-br{position:absolute;right:-3vw;bottom:-6vh;height:25vh;width:auto;pointer-events:none}
+```
+
 **注意**:
-- 主题类必须是 `hero dark`——`HQ-06` 是全 deck 唯一允许用 `dark` 的页
+- 主题类必须是 `hero dark`——`HQ-06` 是全 deck 唯一允许用 `dark` 的页(validator P0 检查)
 - 巨号字 8vw,字重 500,**不要**用 Swiss 的 200(中文大字用 200 不可读)
-- 装饰方块在右下(跟封面 HQ-01 左下对称)
+- ~~装饰方块在右下(跟封面 HQ-01 左下对称)~~ **issue #8 删除** 原底部 3 个 `<span class="deco-dot">`(改用双圆)
 - 暗底用 `var(--ink-3)` 接近白的方块,亮底用 `var(--ink)` 深蓝方块
+- 圆是 `<img>` 引入 PNG,完全绕开 `border-radius` 硬规则(validator 只查 CSS,不查图片内容)
+- 顶部 3 个 `<img>` 都加了 `pointer-events:none` —— 不阻挡背景按键翻页
+- LOGO 和双圆 3 个 `<img>` 必须存在(validator P0 检查,否则报错)
 
 ---
 

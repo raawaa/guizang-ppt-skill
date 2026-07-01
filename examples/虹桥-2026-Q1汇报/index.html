@@ -304,6 +304,12 @@
   /* 8x8 装饰方块,封面/致谢用 */
   .deco-dot{display:inline-block;width:8px;height:8px}
 
+  /* HQ-06 致谢页(LOGO + 双圆)— issue #8
+     logo-hq 左上角白色 LOGO;circle-tr 右侧大圆(部分出画);circle-br 右下小圆(部分出画) */
+  .logo-hq{position:absolute;left:5vw;top:4vh;height:7vh;width:auto;pointer-events:none}
+  .circle-tr{position:absolute;right:-5vw;top:18vh;height:30vh;width:auto;pointer-events:none}
+  .circle-br{position:absolute;right:-3vw;bottom:-6vh;height:25vh;width:auto;pointer-events:none}
+
 
   .body-sm{
     font-family:var(--sans),var(--sans-zh);
@@ -1750,7 +1756,7 @@
 <section class="slide hero dark" data-layout="HQ-06" data-animate="manifesto">
   <div class="canvas-card" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;height:100%">
     <span class="t-meta" style="color:var(--grey-3)">END · 2026 Q1</span>
-    <h1 class="h-thanks" style="margin-top:2vh">谢 谢</h1>
+    <h1 class="h-thanks" style="margin-top:2vh">谢谢!</h1>
     <p class="lead" style="margin-top:3vh;color:var(--grey-2)">感谢聆听 · 欢迎提问</p>
     <div style="margin-top:auto;display:flex;gap:3vw;padding-top:8vh">
       <span class="t-meta" style="color:var(--grey-3)">运营管理部</span>
@@ -1758,11 +1764,9 @@
       <span class="t-meta" style="color:var(--grey-3)">虹桥公司</span>
     </div>
   </div>
-  <div style="position:absolute;right:5vw;bottom:5vh;display:flex;gap:8px">
-    <span class="deco-dot" style="background:var(--ink-3)"></span>
-    <span class="deco-dot" style="background:var(--accent-bright)"></span>
-    <span class="deco-dot" style="background:var(--alert-amber)"></span>
-  </div>
+  <img class="logo-hq" src="../assets/source/hongqiao/logo-white.png" alt="上海机场 · 虹桥机场">
+  <img class="circle-tr" src="../assets/source/hongqiao/circle-large.png" alt="">
+  <img class="circle-br" src="../assets/source/hongqiao/circle-small.png" alt="">
 </section>
 
 

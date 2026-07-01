@@ -155,6 +155,20 @@ slides.forEach((slide) => {
     errors.push(`Slide ${slide.idx}: uses box-shadow. Hongqiao inherits flat aesthetic.`);
   }
 
+  // 8) HQ-06 致谢页必须含 LOGO + 至少一个双圆 PNG(issue #8)
+  if (/data-layout="HQ-06"/.test(sectionOpen)) {
+    const hasLogo = /<img\b[^>]*src="[^"]*logo-white\.png"/i.test(slide.html);
+    const hasCircle = /<img\b[^>]*src="[^"]*(?:circle-large|circle-small)\.png"/i.test(slide.html);
+    if (!hasLogo || !hasCircle) {
+      errors.push(`Slide ${slide.idx}: HQ-06 must include <img> for logo-white.png and at least one circle PNG (circle-large.png or circle-small.png) — issue #8.`);
+    }
+  }
+
+  // 9) HQ-06 必须保持 class="slide hero dark"(issue #8)
+  if (/data-layout="HQ-06"/.test(sectionOpen) && !/\bhero\s+dark\b/.test(sectionOpen)) {
+    errors.push(`Slide ${slide.idx}: HQ-06 must keep class="slide hero dark" — issue #8.`);
+  }
+
   // 累计警示色次数
   totalAlertRed += (slide.html.match(/var\(--alert-red\)/g) || []).length;
   totalAlertAmber += (slide.html.match(/var\(--alert-amber\)/g) || []).length;
