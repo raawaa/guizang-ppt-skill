@@ -239,6 +239,17 @@ node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 - 通用版式(S03/S08/S11/S19)可多用;数据专用(S06/S07/S20/S21/S22)必须有真实数据或案例;结构专用(S14/S15/S17)必须有闭环、矩阵或层级关系
 ---
 
+### 0-L. 翻页锁时长必须跟 CSS 过渡联动(60ms 下限)
+
+**现象**:静态模式(`B` 键切换后)下连按 →,第一次按键被吞,要按两下才能翻页。
+
+**根因**:`go()` 顶部的 `lock=true;setTimeout(()=>lock=false, 700)` 硬编码 700ms,但 `#deck` 在静态模式 `transition: none !important`(0ms),动效模式 `.9s`(900ms)。两者没联动,静态模式下锁时长比过渡时长长太多,挡掉正常连按。
+
+**做法**:
+- 引入 `deckLockMs()` helper,读 `#deck` 的 `transitionDuration`,取所有分量的最大值,跟 60ms 取大。
+- `go()` 把 `setTimeout(()=>lock=false, 700)` 改为 `setTimeout(()=>lock=false, deckLockMs())`。
+- 所有 style 的 `assets/template*.html` 都要应用。
+
 ### 0. 生成前必须通过的类名校验(最重要)
 
 **现象**：直接把 layouts.md 的骨架粘到新 HTML,结果样式全部丢失——大标题变成非衬线、数据大字报字体小得像正文、pipeline 多页糊成一坨、图片堆到浏览器底部。
