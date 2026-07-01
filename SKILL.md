@@ -32,6 +32,7 @@ description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背�
 
 - **继承 Style B 的工程骨架**（IBM Carbon 2x Grid + Motion tokens + 16 列 grid）
 - **保留原虹桥 PPT 的视觉语言**：虹桥深蓝主色 + 多功能警示色（蓝主 + 橙黄红）+ 五段式中国汇报结构
+- **封面/封底已对齐原 PPTX 视觉**（LOGO + 弧形 + 圆 + 居中布局）
 - **无衬线中等字重**（Arial + 微软雅黑 · 字重 500,非 Swiss 的 200 极细）
 - **温和字号对比**（3:1,适合中文投屏;主标题 4-5vw,致谢 8vw）
 - **适合**：公司内部汇报、年度总结、项目立项、客户提案、招股路演、国企/事业单位标准 PPT
@@ -514,7 +515,15 @@ guizang-ppt-skill/
     ├── image-prompts.md      ← GPT-M 2.0 配图类型、比例和基础提示词
     ├── screenshot-framing.md ← CleanShot X 式截图适配语义 + 内置背景资产映射
     └── checklist.md          ← 通用质量检查清单（P0/P1/P2/P3 分级）
+└── assets/source/hongqiao/    ← 风格 C · 5 张虹桥品牌素材（被 `.gitignore` 隔离,本地 dev 需自行准备）
+    ├── logo-white.png         ← 白底 LOGO（封面页 HQ-01 用）
+    ├── logo-blue.png          ← 蓝底 LOGO（封底 / 致谢页 HQ-06 用）
+    ├── cover-arc.png          ← 封面弧形装饰
+    ├── circle-large.png       ← 大圆装饰
+    └── circle-small.png       ← 小圆装饰
 ```
+
+> **虹桥品牌素材说明**:`assets/source/` 已在 `.gitignore` 内,5 张 PNG（`logo-white.png` / `logo-blue.png` / `cover-arc.png` / `circle-large.png` / `circle-small.png`）不在仓库里,本地开发者需从原 PPTX 抽取后放到 `assets/source/hongqiao/` 下,模板才能正确渲染封面 / 封底视觉。
 
 **加载顺序建议**：
 1. 先读完 `SKILL.md`(这个文件)了解整体
