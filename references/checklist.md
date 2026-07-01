@@ -82,6 +82,12 @@ node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 - `rg -n "font-weight:(300)" index.html | rg -v "min\(|h-xl|h-hero|h-statement|num-mega|kpi-thin|name-mega|8vw|9vw|1[1-9]vw|cover-|\.multi"` —— 检查 weight 300 是否落在了小字号上
 - 浏览器以 100% 缩放查看,底部 note、caption、timeline label、卡片描述仍能一眼读清。
 
+### 0-S-5. Swiss 翻页锁时长联动 CSS 过渡(60ms 下限)
+
+同 `0-L`(通用规则)。`assets/template-swiss.html` 的 `go()` 必须用 `deckLockMs()`,不允许硬编码 700ms。静态模式下连按 → 不应被吞。
+
+---
+
 ### 0-A. 瑞士风画布对齐法则(每一页必查 · 最常踩)
 
 **现象**:页眉 chrome-min 和底部 footer 都靠在 5vw 的边线上,但中间区域往内缩了一截,左右对不齐。
