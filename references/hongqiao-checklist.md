@@ -54,6 +54,7 @@
 29. **动效时长 ≤ 1.5s**——`recipe-thanks` 除外(允许 1.2s 慢入)
 30. **首屏入场无白屏**——检查 `[data-anim]` 容器初始 opacity
 
+30a. **静态模式连按 → 不被吞**——`go()` 锁时长 ≤ 100ms(`deckLockMs()` 读 `#deck` 的 CSS `transition-duration` 联动 + 60ms 下限,见 ADR 0001)
 ### 数据展示页(HQ-05)
 31. **KPI 数字 3-4 个并列**——不超过 4 个,不超过 1 行
 32. **↑ ↓ 符号用 Unicode,不用 emoji**——`↑` / `↓` 字符
